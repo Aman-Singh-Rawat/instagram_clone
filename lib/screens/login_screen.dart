@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_flutter/utils/colors.dart';
@@ -58,7 +57,6 @@ class _LoginScreenState extends State<LoginScreen> {
               InkWell(
                 onTap: () {},
                 child: Container(
-                  child: const Text("Log in"),
                   width: double.infinity,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(vertical: 12),
@@ -70,6 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     color: blueColor,
                   ),
+                  child: const Text("Log in"),
                 ),
               ),
               const SizedBox(height: 12),
