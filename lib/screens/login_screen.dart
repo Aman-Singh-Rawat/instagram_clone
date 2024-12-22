@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.symmetric(
                       vertical: 8,
                     ),
-                    child: const Text("Don't have an account?"),
+                    child: const Text("Don't have an account? "),
                   ),
                   GestureDetector(
                     onTap: () {},
