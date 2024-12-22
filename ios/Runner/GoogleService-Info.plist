@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyAQi5ygHCIoKlegI7c_2oPHTsm7ocrp0Cg</string>
+	<string>AIzaSyBzO6WQ_OhQLUeBzlwkTJCGybr604gVNfE</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1915527395</string>
+	<string>1040402278204</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.instagramFlutter</string>
 	<key>PROJECT_ID</key>
-	<string>instagram-clone-a9e7b</string>
+	<string>instagram-clone-82dd5</string>
 	<key>STORAGE_BUCKET</key>
-	<string>instagram-clone-a9e7b.firebasestorage.app</string>
+	<string>instagram-clone-82dd5.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1915527395:ios:fe54254c7ac39071e065d6</string>
+	<string>1:1040402278204:ios:ebe691b4c1a4689b5de039</string>
 </dict>
 </plist>

@@ -1,24 +1,26 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:instagram_flutter/screens/sign_up_screen.dart';
 import 'package:instagram_flutter/utils/colors.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); //TODO WHY WE USE THIS
+  WidgetsFlutterBinding.ensureInitialized();
   if (kIsWeb) {
     await Firebase.initializeApp(
       options: const FirebaseOptions(
-        apiKey: "AIzaSyCP86MEVZei0SxCCRSKkAHAOpgWs_y8S8o",
-        appId: "1:1915527395:web:de297ade25732809e065d6",
-        messagingSenderId: "1915527395",
-        projectId: "instagram-clone-a9e7b",
-        storageBucket: "instagram-clone-a9e7b.firebasestorage.app",
+        apiKey: "AIzaSyAcPnd4hQKUnd0VFGSHzWp3C3ovymqfVT4",
+        appId: "1:1040402278204:web:73ab53999022bb685de039",
+        messagingSenderId: "1040402278204",
+        projectId: "instagram-clone-82dd5",
+        storageBucket: "instagram-clone-82dd5.firebasestorage.app",
       ),
     );
   } else {
     await Firebase.initializeApp();
   }
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 

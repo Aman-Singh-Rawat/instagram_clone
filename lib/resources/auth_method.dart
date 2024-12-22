@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:instagram_flutter/resources/cloudinary_service.dart';
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -26,7 +27,11 @@ class AuthMethods {
           password: password,
         );
 
-        print(credential.user?.uid);
+        String? photoUrl = await uploadToCloudinary("profilePics", file, false);
+        if(photoUrl == null) {
+          return "Fail";
+        }
+
         await _firebaseStore.collection("users").doc(credential.user!.uid).set({
           "username": username,
           "uid": credential.user!.uid,
@@ -34,6 +39,7 @@ class AuthMethods {
           "bio": bio,
           "followers": [],
           "following": [],
+          "photoUrl": photoUrl,
         });
 
         result = "Success";
