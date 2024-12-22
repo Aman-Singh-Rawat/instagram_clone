@@ -33,7 +33,7 @@ class AuthMethods {
       );
 
       String? photoUrl = await uploadToCloudinary("profilePics", file, false);
-      if(photoUrl == null) {
+      if (photoUrl == null) {
         return "Fail";
       }
 
@@ -53,4 +53,28 @@ class AuthMethods {
     }
     return result;
   }
+
+  Future<String> loginScreen({required String email, required String password}) async {
+    try {
+      // Sign in the user with email and password
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return "success";
+    } on FirebaseAuthException catch (e) {
+      // Handle Firebase-specific exceptions
+      if (e.code == 'user-not-found') {
+        return 'No user found with this email.';
+      } else if (e.code == 'wrong-password') {
+        return 'Incorrect password.';
+      } else {
+        return e.message ?? 'An error occurred.';
+      }
+    } catch (e) {
+      // Handle other exceptions
+      return 'Error: $e';
+    }
+  }
+
 }
