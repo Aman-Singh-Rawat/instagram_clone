@@ -65,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 64,
                     colorFilter: const ColorFilter.mode(
                       primaryColor,
-                      BlendMode.color,
+                      BlendMode.srcIn,
                     ),
                   ),
                   const SizedBox(height: 64),

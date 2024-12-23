@@ -47,7 +47,7 @@ class AuthMethods {
         "photoUrl": photoUrl,
       });
 
-      result = "$username successfully signup";
+      result = "success";
     } catch (error) {
       result = error.toString();
     }
@@ -56,8 +56,7 @@ class AuthMethods {
 
   Future<String> loginScreen({required String email, required String password}) async {
     try {
-      // Sign in the user with email and password
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
