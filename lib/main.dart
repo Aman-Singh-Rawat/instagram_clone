@@ -12,20 +12,22 @@ import 'package:instagram_flutter/utils/colors.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
+
   if (kIsWeb) {
     await Firebase.initializeApp(
-      options: const FirebaseOptions(
-        apiKey: "AIzaSyAcPnd4hQKUnd0VFGSHzWp3C3ovymqfVT4",
-        appId: "1:1040402278204:web:73ab53999022bb685de039",
-        messagingSenderId: "1040402278204",
-        projectId: "instagram-clone-82dd5",
-        storageBucket: "instagram-clone-82dd5.firebasestorage.app",
+      options: FirebaseOptions(
+        apiKey: dotenv.env["FIREBASE_API_KEY"] ?? "",
+        appId: dotenv.env["FIREBASE_APP_ID"] ?? "",
+        messagingSenderId: dotenv.env["FIREBASE_MESSAGING_SENDER_ID"] ?? "",
+        projectId: dotenv.env["FIREBASE_PROJECT_ID"] ?? "",
+        storageBucket: dotenv.env["FIREBASE_STORAGE_BUCKET"] ?? "",
       ),
     );
   } else {
     await Firebase.initializeApp();
   }
-  await dotenv.load(fileName: ".env");
+
   runApp(const MyApp());
 }
 
