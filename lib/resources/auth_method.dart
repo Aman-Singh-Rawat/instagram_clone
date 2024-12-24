@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:instagram_flutter/resources/cloudinary_service.dart';
 
-import '../utils/utils.dart';
+import 'package:instagram_flutter/models/user.dart' as model;
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -37,15 +37,18 @@ class AuthMethods {
         return "Fail";
       }
 
-      await _firebaseStore.collection("users").doc(credential.user!.uid).set({
-        "username": username,
-        "uid": credential.user!.uid,
-        "email": email,
-        "bio": bio,
-        "followers": [],
-        "following": [],
-        "photoUrl": photoUrl,
-      });
+      model.User user = model.User(
+        userName: username,
+        uId: credential.user!.uid,
+        email: email,
+        bio: bio,
+        followers: [],
+        following: [],
+        photoUrl: photoUrl,
+      );
+      await _firebaseStore.collection("users").doc(credential.user!.uid).set(
+            user.toJson(),
+          );
 
       result = "success";
     } catch (error) {
@@ -54,7 +57,8 @@ class AuthMethods {
     return result;
   }
 
-  Future<String> loginScreen({required String email, required String password}) async {
+  Future<String> loginScreen(
+      {required String email, required String password}) async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
@@ -75,5 +79,4 @@ class AuthMethods {
       return 'Error: $e';
     }
   }
-
 }
