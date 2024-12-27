@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:instagram_flutter/models/post.dart';
 import 'package:instagram_flutter/resources/cloudinary_service.dart';
 import 'package:uuid/uuid.dart';

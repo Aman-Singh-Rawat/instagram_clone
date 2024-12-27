@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:instagram_flutter/models/user.dart';
 
 class Post {
   Post({
