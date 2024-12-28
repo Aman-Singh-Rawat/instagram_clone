@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_flutter/utils/colors.dart';
+import 'package:intl/intl.dart';
 
 class PostCard extends StatefulWidget {
-  const PostCard({super.key});
+  const PostCard({
+    super.key,
+    required this.snap,
+  });
+
+  final snap;
 
   @override
   State<PostCard> createState() => _PostCardState();
@@ -23,21 +29,22 @@ class _PostCardState extends State<PostCard> {
                 .copyWith(right: 0),
             child: Row(
               children: [
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 16,
                   backgroundImage: NetworkImage(
-                      "https://s3.ap-south-1.amazonaws.com/awsimages.imagesbazaar.com/900x600/19523/220-SM937509.jpg"),
+                    widget.snap['profImage'],
+                  ),
                 ),
-                const Expanded(
+                Expanded(
                   child: Padding(
-                    padding: EdgeInsets.only(left: 0),
+                    padding: const EdgeInsets.only(left: 0),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "username",
-                          style: TextStyle(
+                          "  ${widget.snap["username"]}",
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         )
@@ -82,7 +89,7 @@ class _PostCardState extends State<PostCard> {
             height: MediaQuery.of(context).size.height * 0.35,
             width: double.infinity,
             child: Image.network(
-              "https://plus.unsplash.com/premium_photo-1728044138824-be1f80079bfc?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw2fHx8ZW58MHx8fHx8",
+              widget.snap["postUrl"],
               fit: BoxFit.cover,
             ),
           ),
@@ -127,14 +134,15 @@ class _PostCardState extends State<PostCard> {
               horizontal: 16,
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
                 DefaultTextStyle(
-                  style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
                         fontWeight: FontWeight.w800,
                       ),
                   child: Text(
-                    "1,231 likes",
+                    "${widget.snap["likes"].length} likes",
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ),
@@ -144,20 +152,19 @@ class _PostCardState extends State<PostCard> {
                     top: 8,
                   ),
                   child: RichText(
-                    text: const TextSpan(
-                      style: TextStyle(
+                    text: TextSpan(
+                      style: const TextStyle(
                         color: primaryColor,
                       ),
                       children: [
                         TextSpan(
-                          text: "username",
-                          style: TextStyle(
+                          text: widget.snap["username"],
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         TextSpan(
-                          text: " Hey this is some description to be replaced",
-                          style: TextStyle(),
+                          text: " ${widget.snap["description"]}",
                         )
                       ],
                     ),
@@ -167,6 +174,7 @@ class _PostCardState extends State<PostCard> {
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 4),
                     child: const Text(
+                      textAlign: TextAlign.start,
                       "View all 200 comments",
                       style: TextStyle(
                         fontSize: 16,
@@ -177,9 +185,11 @@ class _PostCardState extends State<PostCard> {
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: const Text(
-                    "22/12/2021",
-                    style: TextStyle(
+                  child: Text(
+                    DateFormat.yMMMd().format(
+                      widget.snap["datePublished"].toDate(),
+                    ),
+                    style: const TextStyle(
                       fontSize: 16,
                       color: secondaryColor,
                     ),
