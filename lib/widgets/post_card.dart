@@ -94,7 +94,11 @@ class _PostCardState extends State<PostCard> {
 
           /* IMAGE SECTION */
           GestureDetector(
-            onDoubleTap: () {},
+            onDoubleTap: () {
+              setState(() {
+                isLikeAnimating = true;
+              });
+            },
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -106,17 +110,25 @@ class _PostCardState extends State<PostCard> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                LikeAnimation(
-                  isAnimating: isLikeAnimating,
-                  duration: const Duration(
-                    milliseconds: 400,
+                AnimatedOpacity(
+                  opacity: isLikeAnimating ? 1 : 0,
+                  duration: const Duration(milliseconds: 200),
+                  child: LikeAnimation(
+                    isAnimating: isLikeAnimating,
+                    duration: const Duration(
+                      milliseconds: 400,
+                    ),
+                    onEnd: () {
+                      setState(() {
+                        isLikeAnimating = false;
+                      });
+                    },
+                    child: const Icon(
+                      Icons.favorite,
+                      color: Colors.white,
+                      size: 120,
+                    ),
                   ),
-                  onEnd: () {
-                    setState(() {
-                      isLikeAnimating = true;
-                    });
-                  },
-                  child: const Icon(Icons.favorite, size: 120,),
                 )
               ],
             ),
