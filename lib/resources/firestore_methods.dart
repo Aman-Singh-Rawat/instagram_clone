@@ -36,10 +36,7 @@ class FirestoreMethods {
         likes: [],
       );
 
-      await _instance
-          .collection("posts")
-          .doc(postId)
-          .set(post.toJson());
+      await _instance.collection("posts").doc(postId).set(post.toJson());
 
       result = "success";
     } catch (error) {
@@ -49,8 +46,8 @@ class FirestoreMethods {
   }
 
   Future<void> likePost(postId, String uId, List likes) async {
-    try{
-      if(likes.contains(uId)) {
+    try {
+      if (likes.contains(uId)) {
         await _instance.collection('posts').doc(postId).update({
           'likes': FieldValue.arrayRemove([uId]),
         });
@@ -60,7 +57,38 @@ class FirestoreMethods {
         });
       }
     } catch (e) {
-      print (e.toString());
+      print(e.toString());
+    }
+  }
+
+  Future<void> postComment({
+    required String uId,
+    required String text,
+    required String postId,
+    required String name,
+    required String profilePic,
+  }) async {
+    try {
+      if (text.isNotEmpty) {
+        String commentId = const Uuid().v1();
+        await _instance
+            .collection('posts')
+            .doc(postId)
+            .collection('comments')
+            .doc(commentId)
+            .set({
+          'profilePic': profilePic,
+          "name": name,
+          "uid": uId,
+          'text': text,
+          'commentId': commentId,
+          'datePublished': DateTime.now(),
+        });
+      } else {
+        print("Text is empty");
+      }
+    } catch (e) {
+      print(e.toString());
     }
   }
 }
