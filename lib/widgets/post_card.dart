@@ -39,13 +39,12 @@ class _PostCardState extends State<PostCard> {
           widget.snap['postId']
       ).collection('comments').get();
 
-      _commentLength = snap.docs.length;
+      setState(() {
+        _commentLength = snap.docs.length;
+      });
     } catch (e) {
       showSnackBar(e.toString(), context);
     }
-    setState(() {
-
-    });
   }
   @override
   Widget build(BuildContext context) {
