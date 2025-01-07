@@ -23,7 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   int followers = 0;
   int following = 0;
   bool _isFollowing = false;
-  bool _isLoading = true;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -33,6 +33,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   getData() async {
     try {
+      setState(() {
+        _isLoading = true;
+      });
       var userSnapshot = await FirebaseFirestore.instance
           .collection('users')
           .doc(widget.uId)
