@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_flutter/utils/colors.dart';
 import 'package:instagram_flutter/utils/utils.dart';
@@ -24,6 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   int followers = 0;
   int following = 0;
   bool _isFollowing = false;
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -43,23 +43,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
           .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .get();
       postLength = postSnap.docs.length;
-      followers = userSnapshot.data()![followers].length;
-      following = userSnapshot.data()![following].length;
+      followers = userSnapshot.data()?[followers]?.length ?? 0;
+      following = userSnapshot.data()?[following]?.length ?? 0;
       _isFollowing = userSnapshot
           .data()!['followers']
-          .containes(FirebaseAuth.instance.currentUser!.uid);
+          .contains(FirebaseAuth.instance.currentUser!.uid);
 
       setState(() {
+        print(userSnapshot.data());
         userData = userSnapshot.data()!;
       });
     } catch (e) {
       showSnackBar(e.toString(), context);
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return _isLoading ? const Center(
+      child: CircularProgressIndicator(),
+    ) : Scaffold(
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
         title: Text(userData['username']),
